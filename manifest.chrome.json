@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "PowerPopup",
+  "description": "Quick launcher for Power Apps: jump straight to environments, apps, and solution components without the maker portal UI.",
+  "version": "0.1.0",
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "PowerPopup (Alt+Shift+P)"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "identity", "tabs", "scripting"],
+  "host_permissions": [
+    "https://login.microsoftonline.com/*",
+    "https://globaldisco.crm.dynamics.com/*"
+  ],
+  "optional_host_permissions": ["https://*.dynamics.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/pocket.js"],
+      "css": ["content/pocket.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["popup/popup.html", "popup/popup.css", "popup/popup.js", "lib/*", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+P" },
+      "description": "Open the PowerPopup popup"
+    },
+    "toggle-pocket": {
+      "suggested_key": { "default": "Alt+Shift+O" },
+      "description": "Toggle the edge pocket on the current page"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

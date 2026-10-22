@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>PowerPopup Options</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <h1>⚡ PowerPopup — Options</h1>
+
+  <section id="session-box">
+    <h2>How data access works</h2>
+    <p class="hint">
+      PowerPopup reads Dataverse <b>same-origin from an open, signed-in org tab</b>
+      (<code>https://yourorg.crm.dynamics.com</code>) — the same model the Level Up extension
+      uses. No app registration, no tokens, no stored secrets, read-only. Open your org once
+      and it's added to the environment list below automatically.
+    </p>
+    <div id="sessionStatus" class="session-status">Checking…</div>
+    <div class="btn-row" id="grantAccessRow" hidden>
+      <button id="grantAccess" class="primary">Enable environment detection</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>1. Environments</h2>
+    <p class="hint">
+      Auto-added when an org tab is detected; you can also add org URLs by hand.
+      Tag each environment so the popup groups and color-codes them.
+    </p>
+    <div id="envList" class="env-list"></div>
+    <div class="btn-row">
+      <button id="addEnv">Add environment</button>
+      <button id="refreshEnvs">Re-detect open org tabs</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Behavior</h2>
+    <label class="check"><input type="checkbox" id="pocketEnabled" /> Show the edge pocket on all pages (on by default; Alt+Shift+O opens its menu)</label>
+  </section>
+
+  <section>
+    <h2>3. Entra app registration <span class="hint" style="font-weight:400">(optional fallback — most users never need this)</span></h2>
+    <p class="hint">
+      Only needed if you want to query an environment <i>without</i> keeping an org tab open,
+      or to discover environments via the Global Discovery service. Create an app registration
+      in Entra ID (Azure portal → App registrations → New): platform
+      <b>Mobile and desktop applications</b>, redirect URI = the value below, and delegated API
+      permission <b>Dynamics CRM → user_impersonation</b>.
+    </p>
+    <label>Redirect URI (register this) <input id="redirect" readonly /></label>
+    <label>Application (client) ID <input id="clientId" placeholder="00000000-0000-0000-0000-000000000000" /></label>
+    <label>Directory (tenant) ID <input id="tenantId" placeholder="contoso.onmicrosoft.com or GUID (blank = organizations)" /></label>
+    <div class="btn-row">
+      <button id="signOut" class="danger">Sign out & clear fallback tokens</button>
+    </div>
+  </section>
+
+  <div class="btn-row">
+    <button id="save" class="primary">Save</button>
+    <span id="saved"></span>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

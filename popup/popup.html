@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <span class="logo">⚡ PowerPopup</span>
+    <input id="filter" type="search" placeholder="Filter… (type to search)" autocomplete="off" />
+    <button id="refresh" title="Refresh current column">⟳</button>
+    <button id="settings" title="Options">⚙</button>
+  </header>
+
+  <div id="signin-bar" class="hidden">
+    <span id="signin-msg"></span>
+    <button id="signin">Sign in</button>
+  </div>
+
+  <main id="columns">
+    <section class="col" id="col-envs" data-col="0"></section>
+    <section class="col hidden" id="col-env" data-col="1"></section>
+    <section class="col hidden" id="col-solution" data-col="2"></section>
+  </main>
+
+  <footer id="status"></footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

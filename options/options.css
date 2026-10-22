@@ -1,0 +1,92 @@
+body {
+  max-width: 760px;
+  margin: 24px auto;
+  padding: 0 16px;
+  background: #1e1e2e;
+  color: #e6e6f0;
+  font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+}
+
+h1 { color: #b06cf0; font-size: 22px; }
+h2 { font-size: 15px; margin-bottom: 8px; color: #cfcfe4; }
+
+section {
+  background: #27273a;
+  border: 1px solid #3a3a55;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.hint { color: #9a9ab0; font-size: 12.5px; margin-bottom: 12px; }
+
+label { display: block; margin: 10px 0; font-size: 13px; color: #cfcfe4; }
+label input:not([type="checkbox"]) {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  background: #313148;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #e6e6f0;
+  padding: 7px 10px;
+  font: inherit;
+}
+label input:focus { border-color: #8a2be2; outline: none; }
+label.check { display: flex; align-items: center; gap: 8px; }
+
+.env-list { display: flex; flex-direction: column; gap: 6px; }
+.env-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #313148;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.env-row input {
+  background: #27273a;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #e6e6f0;
+  padding: 5px 8px;
+  font: inherit;
+}
+.env-row input:focus { border-color: #8a2be2; outline: none; }
+.env-row .name { flex: 1; min-width: 0; }
+.env-row .url { flex: 2; min-width: 0; color: #b9b9cc; font-size: 12px; }
+.env-row .tab-dot { color: #2ea043; }
+.env-row button { padding: 4px 10px; }
+.env-row select {
+  background: #27273a;
+  color: #e6e6f0;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.btn-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.btn-row[hidden] { display: none; }
+button {
+  background: #313148;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #e6e6f0;
+  padding: 7px 16px;
+  cursor: pointer;
+  font: inherit;
+}
+button:hover { border-color: #8a2be2; }
+button.primary { background: #8a2be2; border-color: #8a2be2; color: #fff; }
+button.danger:hover { border-color: #d64545; color: #ff9d9d; }
+#saved { color: #2ea043; font-size: 13px; }
+.empty { color: #9a9ab0; font-style: italic; }
+
+.session-status {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.session-status.ok { background: #143d1e; color: #7fdca0; border: 1px solid #2ea043; }
+.session-status.warn { background: #3a2a12; color: #f0c674; border: 1px solid #6b5220; }
+#session-box a { color: #b06cf0; }

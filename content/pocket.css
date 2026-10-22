@@ -1,0 +1,3 @@
+/* Pocket styles live inside a closed shadow root (content/pocket.js); this
+   file exists so the manifest entry is valid and for any future page-level
+   overrides. */

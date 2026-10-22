@@ -1,0 +1,295 @@
+:root {
+  --bg: #1e1e2e;
+  --bg-2: #27273a;
+  --bg-3: #313148;
+  --fg: #e6e6f0;
+  --fg-dim: #9a9ab0;
+  --accent: #8a2be2;
+  --accent-2: #b06cf0;
+  --dev: #2ea043;
+  --prod: #d64545;
+  --border: #3a3a55;
+
+  /* Component-kind colors (outline coloring in the components column) */
+  --kind-flow: #4f8cff;
+  --kind-solution: #d64ac9;
+  --kind-table: #2ea043;
+  --kind-app: #e0a030;
+  --kind-webresource: #d6c945;
+  --kind-plugin: #d64545;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 720px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+body.pocket { width: 100%; height: 100vh; }
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo { font-weight: 600; white-space: nowrap; color: var(--accent-2); }
+
+#filter {
+  flex: 1;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--fg);
+  padding: 5px 8px;
+  outline: none;
+}
+#filter:focus { border-color: var(--accent); }
+
+header button, #signin {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--fg);
+  padding: 4px 9px;
+  cursor: pointer;
+  font-size: 13px;
+}
+header button:hover, #signin:hover { border-color: var(--accent); }
+
+#signin-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #3a2a12;
+  border-bottom: 1px solid var(--border);
+  color: #f0c674;
+}
+
+#columns {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  padding: 6px;
+}
+.col:last-child { border-right: none; }
+
+.col h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  padding: 6px 8px 3px;
+  position: sticky;
+  top: -6px;
+  background: var(--bg);
+  z-index: 1;
+}
+
+/* Collapsible kind-groups */
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 6px;
+}
+.group-head:hover { color: var(--fg); }
+.gchev {
+  font-size: 9px;
+  color: var(--fg-dim);
+  transition: transform 0.12s;
+  transform: rotate(90deg);
+}
+.group.collapsed .gchev { transform: rotate(0deg); }
+.sort-sel {
+  margin-left: auto;
+  background: var(--bg-3);
+  color: var(--fg-dim);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 10px;
+  padding: 1px 3px;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.sort-sel:hover { color: var(--fg); border-color: var(--accent); }
+.group.collapsed .group-body { display: none; }
+/* While filtering, force groups open so matches are visible. */
+#columns.filtering .group.collapsed .group-body { display: block; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+.row:hover { background: var(--bg-3); }
+.row.selected { background: var(--accent); color: #fff; }
+.row.selected .dim, .row.selected .badge { color: #eee; }
+
+.row .label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row .dim { color: var(--fg-dim); font-size: 11px; }
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+}
+.badge.dev { background: var(--dev); color: #fff; }
+.badge.prod { background: var(--prod); color: #fff; }
+.badge.other { background: var(--bg-3); color: var(--fg-dim); }
+.badge.kind-flow { background: var(--kind-flow); color: #fff; }
+.badge.kind-solution { background: var(--kind-solution); color: #fff; }
+.badge.kind-table { background: var(--kind-table); color: #fff; }
+.badge.kind-app { background: var(--kind-app); color: #1e1e2e; }
+.badge.kind-webresource { background: var(--kind-webresource); color: #1e1e2e; }
+.badge.kind-plugin { background: var(--kind-plugin); color: #fff; }
+
+/* Tint a component-type group's heading to match its items' kind color. */
+.group.kind-flow > .group-head { color: var(--kind-flow); }
+.group.kind-solution > .group-head { color: var(--kind-solution); }
+.group.kind-table > .group-head { color: var(--kind-table); }
+.group.kind-app > .group-head { color: var(--kind-app); }
+.group.kind-webresource > .group-head { color: var(--kind-webresource); }
+.group.kind-plugin > .group-head { color: var(--kind-plugin); }
+.group[class*="kind-"] > .group-head .gchev { color: inherit; }
+.group[class*="kind-"] > .group-head:hover { color: inherit; filter: brightness(1.2); }
+
+.row .actions { display: none; gap: 2px; }
+.row:hover .actions { display: flex; }
+.row .actions button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+.row .actions button:hover { background: rgba(255, 255, 255, 0.15); }
+.row .pin-on { color: #f0c674; }
+
+/* App picker: click the row to reveal editor/app choices, each independently
+   openable (click label) and favoritable (click star). */
+.pin-picker {
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0 0 3px 22px;
+}
+.pin-picker.open { display: flex; }
+.pin-choice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11.5px;
+  color: var(--fg-dim);
+}
+.pin-choice:hover { background: var(--bg-3); color: var(--fg); }
+.pin-choice button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 11.5px;
+  padding: 0;
+  line-height: 1;
+}
+.pin-choice .pin-on { color: #f0c674; }
+
+/* Pinned list editor: the pencil in the group header enables renaming and
+   drag-to-reorder, so the controls stay out of the way until asked for. */
+.pin-edit {
+  margin-left: auto;
+  background: var(--bg-3);
+  color: var(--fg-dim);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.pin-edit:hover { color: var(--fg); border-color: var(--accent); }
+.pin-edit.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.drag-handle { color: var(--fg-dim); font-size: 13px; line-height: 1; }
+.pin-list.editing .row { cursor: grab; touch-action: none; }
+.pin-list.editing .row .actions { display: flex; } /* keep them visible without hovering */
+.pin-row.dragging { cursor: grabbing; background: var(--bg-3); box-shadow: 0 0 0 1px var(--accent) inset; }
+.pin-row.dragging .drag-handle { color: var(--accent-2); }
+
+.rename-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--fg);
+  font: inherit;
+  padding: 1px 4px;
+  outline: none;
+}
+
+.chevron { color: var(--fg-dim); font-size: 10px; }
+
+.empty, .loading {
+  color: var(--fg-dim);
+  padding: 14px 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+footer {
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--fg-dim);
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  min-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+footer.error { color: #ff8080; }
+
+.hidden { display: none !important; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border); }
